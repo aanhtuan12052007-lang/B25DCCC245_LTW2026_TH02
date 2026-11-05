@@ -201,3 +201,141 @@ input {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+.lifebuoy-used {
+  background: #fed7aa;
+  color: #9a3412;
+}
+
+.helpers {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.helpers button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #174ea6;
+  color: white;
+  cursor: pointer;
+}
+
+.helpers button:disabled {
+  background: #aab4c5;
+  cursor: not-allowed;
+}
+
+.lifebuoy-message {
+  color: #c2410c;
+  font-weight: bold;
+  text-align: center;
+}
+
+.history {
+  width: min(1100px, 92%);
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, .07);
+}
+
+.history h1 {
+  color: #174ea6;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.history-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.history-stats div {
+  padding: 20px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.history-stats h3 {
+  margin: 0 0 12px;
+  color: #475569;
+  font-size: 16px;
+}
+
+.history-stats p {
+  margin: 0;
+  color: #174ea6;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.history-table-wrapper {
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.history-table th,
+.history-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.history-table th {
+  background: #174ea6;
+  color: white;
+}
+
+.history-table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+.clear-history {
+  display: block;
+  margin: 25px auto;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #dc2626;
+  color: white;
+  cursor: pointer;
+}
+
+.clear-history:hover {
+  background: #b91c1c;
+}
+
+.history > p {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.history a {
+  color: #174ea6;
+  text-decoration: none;
+}
+
+.history a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .history {
+    padding: 18px;
+  }
+
+  .history-stats {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,12 +1,11 @@
+
 import { Navigate, Link, useLocation } from 'react-router-dom';
 
 const Result = () => {
   const location = useLocation();
   const result = location.state;
 
-  if (!result) {
-    return <Navigate to="/" replace />;
-  }
+  if (!result) return <Navigate to="/" replace />;
 
   let title = 'Bạn đã hoàn thành phần thi!';
 
@@ -16,14 +15,14 @@ const Result = () => {
     title = 'Rất tiếc! Bạn đã trả lời sai.';
   } else if (result.reason === 'timeout') {
     title = 'Hết thời gian!';
+  } else if (result.reason === 'complete') {
+    title = 'Bạn đã hoàn thành 15 câu';
   }
 
   return (
     <section className="result">
       <h1>{title}</h1>
-
       <h2>Kết quả của {result.name}</h2>
-
       <p>Số câu trả lời đúng: {result.correctCount}/15</p>
       <p>Tổng điểm: {result.score}</p>
       <p>Xếp hạng: {result.rank}</p>

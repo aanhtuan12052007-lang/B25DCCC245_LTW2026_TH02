@@ -1,6 +1,7 @@
+
 import { useNavigate } from 'react-router-dom';
 
-const Home = ({ playerName, setPlayerName }) => {
+const Home = ({ playerName, setPlayerName, history }) => {
   const navigate = useNavigate();
 
   const handleStart = () => {
@@ -9,10 +10,20 @@ const Home = ({ playerName, setPlayerName }) => {
     }
   };
 
+  const record = history.length
+    ? [...history].sort((a, b) => b.score - a.score)[0]
+    : null;
+
   return (
     <section className="home">
       <h1>RUNG CHUÔNG VÀNG</h1>
       <p>Thử thách kiến thức lập trình Web của bạn!</p>
+
+      {record && (
+        <p className="home-record">
+          Kỷ lục: {record.score} điểm – {record.name}
+        </p>
+      )}
 
       <input
         type="text"

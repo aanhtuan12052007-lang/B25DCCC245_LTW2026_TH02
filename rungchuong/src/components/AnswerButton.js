@@ -5,6 +5,7 @@ const AnswerButton = ({
   correct,
   disabled,
   revealed,
+  hidden,
   onClick
 }) => {
   let className = 'answer-button';
@@ -28,8 +29,9 @@ const AnswerButton = ({
   return (
     <button
       className={className}
-      disabled={disabled}
+      disabled={disabled || hidden}
       onClick={onClick}
+      style={hidden ? { visibility: 'hidden' } : {}}
     >
       <strong>{letter}.</strong> {option}
     </button>

@@ -1,3 +1,4 @@
+
 const BUILD_TAG = "rc-5307";
 /* eslint-disable import/first */
 
@@ -11,6 +12,7 @@ import QuestionList from './pages/QuestionList';
 import QuestionDetail from './pages/QuestionDetail';
 import Play from './pages/Play';
 import Result from './pages/Result';
+import History from './pages/History';
 import NotFound from './pages/NotFound';
 
 import './App.css';
@@ -22,6 +24,14 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [playerName, setPlayerName] = useState('');
+
+  const [history, setHistory] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('ltw_rcv_history') || '[]');
+    } catch {
+      return [];
+    }
+  });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -49,6 +59,18 @@ const App = () => {
     return () => controller.abort();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('ltw_rcv_history', JSON.stringify(history));
+  }, [history]);
+
+  const handleSaveHistory = (record) => {
+    setHistory((prev) => [...prev, record]);
+  };
+
+  const handleClearHistory = () => {
+    setHistory([]);
+  };
+
   if (loading) {
     return <h2>Đang tải dữ liệu...</h2>;
   }
@@ -66,17 +88,44 @@ const App = () => {
             <Home
               playerName={playerName}
               setPlayerName={setPlayerName}
+              history={history}
             />
           }
         />
 
-        <Route path="questions" element={<QuestionList questions={questions} />} />
-        <Route path="questions/:id" element={<QuestionDetail questions={questions} />} />
+        <Route
+          path="questions"
+          element={<QuestionList questions={questions} />}
+        />
+
+        <Route
+          path="questions/:id"
+          element={<QuestionDetail questions={questions} />}
+        />
+
         <Route
           path="play"
-          element={<Play questions={questions} playerName={playerName} />}
+          element={
+            <Play
+              questions={questions}
+              playerName={playerName}
+              onSaveHistory={handleSaveHistory}
+            />
+          }
         />
+
         <Route path="result" element={<Result />} />
+
+        <Route
+          path="history"
+          element={
+            <History
+              history={history}
+              onClearHistory={handleClearHistory}
+            />
+          }
+        />
+
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

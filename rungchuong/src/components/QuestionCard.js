@@ -6,6 +6,7 @@ const QuestionCard = ({
   questionNumber,
   selectedAnswer,
   status,
+  hiddenOption,
   onAnswer
 }) => {
   return (
@@ -20,6 +21,7 @@ const QuestionCard = ({
         {question.options.map((option, index) => {
           const letter = LETTERS[index];
           const isCorrect = question.answer === index;
+          const isHidden = hiddenOption === index;
 
           return (
             <AnswerButton
@@ -30,6 +32,7 @@ const QuestionCard = ({
               correct={isCorrect}
               disabled={status !== 'answering'}
               revealed={status === 'revealed'}
+              hidden={isHidden}
               onClick={() => onAnswer(index)}
             />
           );
