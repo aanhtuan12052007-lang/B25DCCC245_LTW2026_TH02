@@ -1,4 +1,3 @@
-
 const BUILD_TAG = "rc-5307";
 /* eslint-disable import/first */
 
@@ -10,12 +9,19 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import QuestionList from './pages/QuestionList';
 import QuestionDetail from './pages/QuestionDetail';
+import Play from './pages/Play';
+import Result from './pages/Result';
 import NotFound from './pages/NotFound';
 
-function App() {
+import './App.css';
+
+void BUILD_TAG;
+
+const App = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [playerName, setPlayerName] = useState('');
 
   useEffect(() => {
     const controller = new AbortController();
@@ -54,19 +60,27 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
         <Route
-          path="questions"
-          element={<QuestionList questions={questions} />}
+          index
+          element={
+            <Home
+              playerName={playerName}
+              setPlayerName={setPlayerName}
+            />
+          }
         />
+
+        <Route path="questions" element={<QuestionList questions={questions} />} />
+        <Route path="questions/:id" element={<QuestionDetail questions={questions} />} />
         <Route
-          path="questions/:id"
-          element={<QuestionDetail questions={questions} />}
+          path="play"
+          element={<Play questions={questions} playerName={playerName} />}
         />
+        <Route path="result" element={<Result />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

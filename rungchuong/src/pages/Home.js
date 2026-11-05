@@ -1,20 +1,12 @@
-
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Home() {
-  const [playerName, setPlayerName] = useState('');
+const Home = ({ playerName, setPlayerName }) => {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    if (!playerName.trim()) {
-      alert('Vui lòng nhập tên người chơi!');
-      return;
+    if (playerName.trim()) {
+      navigate('/play');
     }
-
-    navigate('/play', {
-      state: { playerName: playerName.trim() }
-    });
   };
 
   return (
@@ -29,11 +21,14 @@ function Home() {
         onChange={(e) => setPlayerName(e.target.value)}
       />
 
-      <button onClick={handleStart}>
-        Bắt đầu
+      <button
+        onClick={handleStart}
+        disabled={!playerName.trim()}
+      >
+        Vào thi
       </button>
     </section>
   );
-}
+};
 
 export default Home;
